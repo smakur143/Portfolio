@@ -231,3 +231,34 @@ sr.reveal(`.footer, footer__container`, {
   origin: "bottom",
   distance: "30px",
 });
+
+// Skills Section Animation
+const skillsContainer = document.querySelector('.skills__container');
+const skillsContent = document.querySelectorAll('.skills__content');
+
+// Add scroll event listener for skills section
+window.addEventListener('scroll', () => {
+    const skillsSection = document.querySelector('#skills');
+    const skillsSectionTop = skillsSection.getBoundingClientRect().top;
+    const windowHeight = window.innerHeight;
+
+    if (skillsSectionTop < windowHeight * 0.8) {
+        skillsContent.forEach((content, index) => {
+            setTimeout(() => {
+                content.style.opacity = '1';
+                content.style.transform = 'translateY(0)';
+            }, index * 200);
+        });
+    }
+});
+
+// Add hover effect for skills items
+skillsContent.forEach(content => {
+    content.addEventListener('mouseenter', () => {
+        content.style.transform = 'translateY(-5px)';
+    });
+
+    content.addEventListener('mouseleave', () => {
+        content.style.transform = 'translateY(0)';
+    });
+});
