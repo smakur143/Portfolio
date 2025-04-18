@@ -262,3 +262,25 @@ skillsContent.forEach(content => {
         content.style.transform = 'translateY(0)';
     });
 });
+
+// Testimonial Swiper
+const testimonialSwiper = new Swiper('.testimonial__container', {
+    loop: true,
+    grabCursor: true,
+    spaceBetween: 30,
+    autoplay: {
+        delay: 3000,
+        disableOnInteraction: false,
+    },
+    breakpoints: {
+        576: {
+            slidesPerView: 1,
+        },
+        768: {
+            slidesPerView: 2,
+        },
+        1024: {
+            slidesPerView: 3,
+        },
+    }
+});

@@ -329,54 +329,76 @@ body.light-theme {
   position: relative;
 }
 
-.home__education span::before{
+.home__education span::before {
   content: "Full Stack Developer";
   color: #ff7f50;
   animation: words 20s infinite;
+  display: inline-block;
+  white-space: nowrap;
+  overflow: hidden;
 }
 
-.home__education span::after{
+.home__education span::after {
   content: "";
   position: absolute;
-  width: calc(100% + 8px);
+  width: 0;
   height: 100%;
   background-color: var(--body-color);
   border-left: 2px solid #ff7f50;
   right: -8px;
-  animation: cursor .8s infinite, typing 20s steps(14) infinite;
+  animation: 
+    typing 20s steps(19) infinite,
+    cursor 0.7s step-end infinite;
+  opacity: 1;
 }
 
 @keyframes cursor {
-  to{
-      border-left: 2px solid #ff7f5000;
+  0%, 100% {
+    border-left: 2px solid #ff7f50;
+  }
+  50% {
+    border-left: 2px solid transparent;
   }
 }
 
 @keyframes words {
-  0%,25%{
-      content: "Full Stack Developer";
+  0%, 20% {
+    content: "Full Stack Developer";
   }
-  26%,50%{
-      content: "Software Engineer";
+  21%, 40% {
+    content: "Software Engineer";
   }
-  51%,75%{
-      content: "Freelancer";
+  41%, 60% {
+    content: "Freelancer";
   }
-  76%,100%{
-      content: "Designer";
+  61%, 80% {
+    content: "AI/ML Expert";
+  }
+  81%, 100% {
+    content: "Full Stack Developer";
   }
 }
 
 @keyframes typing {
-  10%{
-      width: 0;
+  0% {
+    width: 0;
   }
-  5%, 20%{
-      width: calc(100% + 8px);
+  5% {
+    width: 0;
+  }
+  20% {
+    width: calc(100% + 8px);
+  }
+  25% {
+    width: calc(100% + 8px);
+  }
+  30% {
+    width: 0;
+  }
+  100% {
+    width: 0;
   }
 }
-
-
 
 .home__name {
   font-size: 3rem;
@@ -641,7 +663,7 @@ body.light-theme {
 
 /*=============== SERVICES ===============*/
 .services__container {
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   gap: 1.5rem;
   padding-top: 1rem;
 }
@@ -650,24 +672,93 @@ body.light-theme {
   background-color: var(--container-color);
   padding: 3rem 1.5rem 1.5em;
   border-radius: 1.25rem;
+  position: relative;
+  transition: all 0.4s ease;
+  border: 2px solid transparent;
+  overflow: hidden;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  min-height: 300px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.services__card:nth-child(1) {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('../img/offer1.png');
+}
+
+.services__card:nth-child(2) {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('../img/offer2.png');
+}
+
+.services__card:nth-child(3) {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('../img/offer3.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.services__card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 1.25rem;
+  background: linear-gradient(45deg, transparent, rgba(135, 206, 235, 0.1), transparent);
+  transform: translateX(-100%);
+  transition: transform 0.6s ease;
+  z-index: 1;
+}
+
+.services__card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 24px rgba(135, 206, 235, 0.2);
+  border-color: rgba(135, 206, 235, 0.3);
+}
+
+.services__card:hover::before {
+  transform: translateX(100%);
 }
 
 .services__title {
   font-size: var(--h3-font-size);
   margin-bottom: 2.5rem;
+  position: relative;
+  z-index: 2;
+  transition: color 0.3s ease;
+  color: #ffffff;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.services__card:hover .services__title {
+  color: #87CEEB;
 }
 
 .services__button {
-  color: var(--first-color);
+  color: #ffffff;
   font-size: var(--small-font-size);
   display: flex;
   align-items: center;
   column-gap: 0.25rem;
   cursor: pointer;
+  position: relative;
+  z-index: 2;
+  transition: all 0.3s ease;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+.services__button:hover {
+  color: #87CEEB;
+  transform: translateX(5px);
 }
 
 .services__button:hover .services__icon {
   transform: translateX(0.25rem);
+  color: #87CEEB;
 }
 
 .services__icon {
@@ -812,28 +903,97 @@ body.light-theme {
 }
 
 /*=============== TESTIMONIAL ===============*/
+.testimonial__container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem 0;
+    overflow: hidden;
+}
+
 .testimonial__card {
-  background-color: var(--container-color);
-  padding: 1.25rem 1.5rem;
-  border-radius: 1.5rem;
-  margin-bottom: 3rem;
+    background: var(--container-color);
+    padding: 2rem;
+    border-radius: 1.25rem;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+    width: 100%;
+    max-width: 350px;
+    margin: 0 auto;
+    height: 400px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 .testimonial__img {
-  width: 60px;
-  border-radius: 3rem;
-  margin-bottom: 1rem;
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    margin-bottom: 1.5rem;
+    object-fit: cover;
+    border: 3px solid var(--first-color);
 }
 
 .testimonial__name {
-  font-size: var(--normal-font-size);
-  font-weight: var(--font-medium);
-  margin-bottom: 0.25rem;
+    font-size: var(--h3-font-size);
+    font-weight: var(--font-medium);
+    margin-bottom: 0.25rem;
+    color: var(--title-color);
+}
+
+.testimonial__position {
+    display: block;
+    font-size: var(--small-font-size);
+    color: var(--text-color-light);
+    margin-bottom: 1rem;
+    font-style: italic;
 }
 
 .testimonial__description {
-  font-size: var(--small-font-size);
-  margin-bottom: 0.15rem;
+    font-size: var(--normal-font-size);
+    line-height: 1.6;
+    color: var(--text-color);
+    margin-bottom: 1.5rem;
+    text-align: justify;
+    padding: 0 1rem;
+    flex-grow: 1;
+    overflow-y: auto;
+}
+
+/* Swiper styles for auto-scrolling */
+.swiper {
+    width: 100%;
+    padding: 2rem 0;
+}
+
+.swiper-wrapper {
+    transition-timing-function: linear;
+}
+
+.swiper-slide {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 1rem;
+}
+
+/* Auto-scroll animation */
+@keyframes scroll {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(calc(-350px * 5));
+    }
+}
+
+.swiper-wrapper {
+    animation: scroll 30s linear infinite;
+}
+
+.swiper-wrapper:hover {
+    animation-play-state: paused;
 }
 
 /* Swiper class */
